@@ -1,0 +1,75 @@
+.survey-wrapper {
+    display: flex;  
+    margin: 6px;
+    .survey-title {
+        font-weight: 600;
+        margin-right: 6px;
+    }
+
+    input {
+        border: 1px solid;
+        flex: 1;
+        margin-right: 10px;
+    }
+
+    .survey-type {
+        font-weight: 600;
+        margin-right: 6px;
+    }
+
+    .survey-description {
+        font-weight: 600;
+        margin-right: 6px;
+    }
+}
+
+
+.question-wrapper {
+    margin: 6px;
+
+    input {
+        padding: 10px;
+        outline: none; 
+        border: 1px solid;
+    }
+
+    .question-sequence {
+        font-weight: 600;
+    }
+
+    .question-content {
+
+    }
+
+    .options-wrapper {
+
+        .options-outer {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .response-wrapper {
+        margin-top: 6px;
+        .response-sequence {
+            font-weight: 600;
+            margin-right: 6px;
+        }
+
+        input {
+            border: 1px solid;
+            margin-right: 6px;
+        }
+    }
+}
+
+.btn-add-question {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.btn-add-submit {
+    margin-top: 10px;
+}
+

@@ -1,0 +1,105 @@
+.formContainer {
+    background-color: #a7bcff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .formWrapper {
+        background-color: white;
+        padding: 20px 60px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        width: 450px;
+
+        .alert-error {
+            background-color: rgb(253, 237, 237);
+            width: 100%;
+            padding: 6px 16px;
+            color: rgb(95, 33, 32);
+            text-align: center;
+            border-radius: 4px;
+            border: 1px solid #f5c6cb;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+
+            input[type="radio"] {
+                width: 20px;
+                border: 2px solid #ccc;
+                outline: none;
+            }
+        
+            input[type="radio"]:checked {
+                border-color: #007bff;
+                /* Change color when selected */
+            }
+        
+            label {
+                cursor: pointer;
+            }
+        }
+
+        .logo {
+            color: #5d5b8d;
+            font-weight: bold;
+            font-size: 24px;
+
+        }
+
+        .title {
+            color: #5d5b8d;
+            font-size: 12px;
+        }
+
+        p {
+            color: #5d5b8d;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        input {
+            padding: 15px;
+            border: none;
+            width: 100%;
+            border-bottom: 1px solid #a7bcff;
+
+            &::placeholder {
+                color: rgb(175, 175, 175);
+            }
+        }
+
+        button {
+            background-color: #7b96ec;
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #8da4f1;
+            font-size: 12px;
+            cursor: pointer;
+
+            img {
+                width: 32px;
+            }
+        }
+    }
+}

@@ -1,0 +1,50 @@
+.sub-comment-info-wrap {
+    display: flex;
+    gap: 10px;
+
+    .comment-user {
+        width: 32px;
+        height: 32px;
+        object-fit: cover;
+        border-radius: 50%;
+        cursor: pointer;
+        vertical-align: middle;
+    }
+
+        .comment-part {
+            width: 100%;
+    
+            .comment {
+                border-radius: 5px;
+                padding: 5px;
+                border: 1px solid #ddd;
+                background-color: #f9f9f9;
+                display: block;
+                margin-bottom: 5px;
+    
+                .replies {
+                    margin-left: 20px;
+                }
+            }   
+    
+            .comment-interactions-wrapper {
+                display: flex;
+                gap: 10px;
+                font-weight: 600;
+                font-size: 13px;
+                margin-bottom: 3px;
+    
+                .comment-action {
+                    span {
+                        cursor: pointer;
+    
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+    
+    
+            }
+        }
+}

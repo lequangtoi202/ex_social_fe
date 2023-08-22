@@ -1,0 +1,26 @@
+ .user-avatar {
+     width: 40px;
+     height: 40px;
+     object-fit: cover;
+     border-radius: 50%;
+     cursor: pointer;
+     vertical-align: middle;
+
+    
+ }
+ .user-display {
+    display: flex;
+    flex-direction: column;
+
+    .displayName {  
+        font-weight: 600;
+    }
+
+    span {
+        font-size: 12px;
+
+        svg {
+            margin-right: 3px;
+        }
+    }
+ }

@@ -1,0 +1,23 @@
+.survey-wrapper {
+    .survey-title {
+        font-size:18px;
+        font-weight: bold;
+    }
+    .survey-question-outer {
+        .survey-options {
+            display: flex;
+            flex-direction: column;
+
+            .survey-option {
+                display: flex;
+                align-items: center;
+
+                input {
+                    width: 16px;
+                    height: 16px;
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+}

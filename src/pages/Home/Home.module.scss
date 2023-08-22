@@ -1,0 +1,209 @@
+
+
+.wrapper {
+    --search-border-radius: 92px;
+    --search-height: 46px;
+    --search-top-space: 9px;
+    --search-button-width: 52px;
+    padding: 28px 0;
+    max-width: 500px;
+
+    .post-area {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        height: 40px;
+
+        .post-outer {
+
+            .user-avatar {
+                width: 32px;
+                height: 32px;
+                object-fit: cover;
+                border-radius: 50%;
+                cursor: pointer;
+                vertical-align: middle;
+            }
+        }
+
+        .post-create {
+            flex: 1;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(22, 24, 35, 0.06);
+            border-radius: var(--search-border-radius);
+            display: flex;
+            padding-left: 16px;
+            border: 1.5px solid transparent;
+            cursor: pointer;
+
+            .input-placeholder {
+                width: 100%;
+                line-height: 36px;
+            }
+        }
+    }
+
+    .posts {
+        margin-top: 20px;
+        .post-wrapper {
+            background-color: rgba(22, 24, 35, 0.06);
+            border-radius: 8px;
+            .user-info {
+                display: flex;
+                align-items: center;
+                height: 40px;
+                padding: 10px 0 0 10px;
+                justify-content: space-between;
+
+                .user-info-area {
+                    display: flex;
+                    gap: 15px;
+                    align-items: center;
+                    height: 40px;
+                    padding: 10px 0 0 10px;
+
+                    
+                }
+
+                .post-function {
+                    padding-right: 10px;
+                    cursor: pointer;
+                }
+
+                .tooltip-interactive {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    color: white;
+
+                    div {
+                        cursor: pointer;
+                        width: 100%;
+                        padding: 3px 10px;
+                        &:hover {
+                            background-color:rgba(17, 19, 26, 0.06);
+                        }
+                    }
+                }
+            }
+
+            .content-wrapper {
+                padding: 10px 10px;
+                margin-top: 6px;
+            }
+
+            .interaction-wrapper {
+                display: flex;
+                justify-content: space-between;
+                padding: 0 10px;
+
+                .group-interactions {
+                    display: flex;
+                    gap: 16px;
+                }
+
+                .share-count,
+                .comments-count,
+                .interactions-count {
+                    cursor: pointer;
+                }
+            }
+
+            .interaction-action-wrapper {
+                display: flex;
+                justify-content: space-around;
+                padding: 10px 10px;
+
+                .reaction-container {
+                    position: relative;
+                    width: 100%;
+
+                    .interactions-action{
+                        display: flex;
+                        align-items: center;
+                        cursor: pointer;
+                        transition: background-color 0.3s ease;
+                        padding: 4px 0;
+                        justify-content: center;
+                
+                        &.blue-reaction-post {
+                            color: #0d81ff;
+                        }
+                        &:hover {
+                            background-color: rgba(17, 19, 26, 0.06);
+                            border-radius: 4px;
+                        }
+                
+                        svg {
+                            margin-right: 8px;
+                
+                        }
+                    }
+            
+                    .button-squad {
+                        display:none;
+                        position: absolute;
+                        padding: 3px 12px;
+                        top: -100%;
+                        background-color: rgba(17, 19, 26, 0.06);
+                        border-radius: 21px;
+                        
+                        &.showIt {
+                            display: flex;
+                            justify-content:center;
+                            gap: 15px;
+                            font-size: 24px;
+                            align-items: center;
+                            z-index: 999;
+                            cursor: pointer;
+                        }
+
+                        span {
+                            border-radius: 50%;
+
+                            svg {
+                                width: 12px;
+                                height: 12px;
+                            }
+                        }
+                    }
+                }
+
+                .comment-action,
+                .share-action {
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+                    padding: 4px 0;
+                    width: 100%;
+                    justify-content: center;
+
+                    &:hover {
+                        background-color: rgba(17, 19, 26, 0.06); 
+                        border-radius: 4px;
+                    }
+            
+                    svg {
+                        margin-right: 8px; 
+                        
+                    }
+                }
+
+                span {
+                    font-weight: 600;
+                }
+            }
+
+            .line {
+                width: 96%;
+                margin: 0 auto;
+                height: 1px;
+                background-color: rgba(17, 18, 27, 0.06);
+            }
+
+           
+        }
+    } 
+}

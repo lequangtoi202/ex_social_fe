@@ -1,0 +1,57 @@
+
+.wrapper {
+    --search-border-radius: 92px;
+    --search-height: 46px;
+    --search-top-space: 9px;
+    --search-button-width: 52px;
+    padding: 28px 0;
+    max-width: 500px;
+
+    .groups-outer {
+        padding: 10px 5px;
+       
+        background-color: rgba(13, 15, 23, 0.2);
+        border-radius: 8px;
+
+        .groups {
+            background-color: rgba(22, 24, 35, 0.06);
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-top: 8px;
+            border-radius:8px;
+
+            .group-img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .group-outer {
+                display: flex;
+                flex-direction: column;
+                margin-left: 20px;
+                flex: 1;
+
+                .group-title {
+                    font-size: 20px;
+                    font-weight: 600;
+                }
+
+                .group-members {
+                    font-size: 14px;
+
+                }
+            }
+
+            .group-action {
+
+                .view-group {
+
+                    &:hover {
+                    }
+                }
+            }
+        }
+    }
+        
+}
