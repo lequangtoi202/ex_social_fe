@@ -11,7 +11,7 @@ import Add from '~/assets/images/addAvatar.png';
 import styles from './SignUp.module.scss';
 import { API_URL } from '~/constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearError, setError } from '~/redux/action';
+import { clearError, setError, setSuccess } from '~/redux/action';
 
 const cx = classNames.bind(styles);
 const SignUp = () => {
@@ -55,12 +55,15 @@ const SignUp = () => {
         const data = await response.data;
         if (data) {
           setEmailExists(data);
-          dispatch(clearError());
-        } else {
           dispatch(setError('Email đã tồn tại.'));
+        } else {
+          dispatch(clearError());
         }
       } catch (err) {
-        dispatch(setError('Server đang xảy ra lỗi. Vui lòng thử lại!'));
+        dispatch(setError('Đã xảy ra lỗi!'));
+        setTimeout(() => {
+          dispatch(clearError());
+        }, 3000);
       }
     }
 
@@ -113,6 +116,7 @@ const SignUp = () => {
         });
 
         setUserRegistered(response.data);
+
         const user = response.data;
         try {
           //Create user
@@ -142,77 +146,25 @@ const SignUp = () => {
                 navigate('/login');
               } catch (err) {
                 dispatch(setError('Đăng ký thất bại!'));
+                setTimeout(() => {
+                  dispatch(clearError());
+                }, 3000);
                 setLoading(false);
               }
             });
           });
         } catch (err) {
           dispatch(setError('Đăng ký thất bại'));
+          setTimeout(() => {
+            dispatch(clearError());
+          }, 3000);
           setLoading(false);
         }
       } catch (error) {
         dispatch(setError('Đăng ký thất bại'));
-      }
-    } else if (formData.userType === 'user') {
-      const user = {
-        displayName: formData.displayName,
-        email: formData.email,
-        username: formData.username,
-        fullName: formData.fullName,
-        phone: formData.phone,
-        password: formData.password,
-        confirmPassword: formData.confirmPassword,
-      };
-      const userRequest = new FormData();
-      userRequest.append('userDto', JSON.stringify(user));
-      userRequest.append('avatar', formData.file);
-
-      try {
-        const response = await axios.post(API_URL + 'auth/register/admin', userRequest, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-
-        setUserRegistered(response.data);
-        const user = response.data;
-        try {
-          const password = formData.userType !== 'lecturer' ? formData.password : 'ou@123';
-          const res = await createUserWithEmailAndPassword(auth, formData.email, password);
-
-          const date = new Date().getTime();
-          const storageRef = ref(storage, `${formData.displayName + date}`);
-          await uploadBytesResumable(storageRef, formData.file).then(() => {
-            getDownloadURL(storageRef).then(async (downloadURL) => {
-              try {
-                await updateProfile(res.user, {
-                  displayName: formData.displayName,
-                  photoURL: downloadURL,
-                });
-
-                await setDoc(doc(db, 'users', res.user.uid), {
-                  uid: res.user.uid,
-                  userId: user.userId,
-                  displayName: formData.displayName,
-                  email: formData.email,
-                  photoURL: downloadURL,
-                });
-
-                //create empty user chats on firestore
-                await setDoc(doc(db, 'userChats', res.user.uid), {});
-                navigate('/login');
-              } catch (err) {
-                dispatch(setError('Đăng ký thất bại'));
-                setLoading(false);
-              }
-            });
-          });
-        } catch (err) {
-          dispatch(setError('Đăng ký thất bại'));
-          setLoading(false);
-        }
-      } catch (error) {
-        dispatch(setError('Đăng ký thất bại'));
+        setTimeout(() => {
+          dispatch(clearError());
+        }, 3000);
       }
     } else {
       const lecturer = {
@@ -233,6 +185,25 @@ const SignUp = () => {
         });
 
         setUserRegistered(response.data);
+
+        const lecRequest = {
+          username: formData.username,
+          email: formData.email,
+        };
+        try {
+          const res = await axios.post(API_URL + 'users/lecturer/provide-account', JSON.stringify(lecRequest), {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          dispatch(setSuccess(res.data));
+        } catch (err) {
+          dispatch(setError(err.response.data));
+          setTimeout(() => {
+            dispatch(clearError());
+          }, 3000);
+        }
+
         const user = response.data;
         try {
           const password = formData.userType !== 'lecturer' ? formData.password : 'ou@123';
@@ -259,16 +230,25 @@ const SignUp = () => {
                 navigate('/login');
               } catch (err) {
                 dispatch(setError('Đăng ký thất bại'));
+                setTimeout(() => {
+                  dispatch(clearError());
+                }, 3000);
                 setLoading(false);
               }
             });
           });
         } catch (err) {
           dispatch(setError('Đăng ký thất bại'));
+          setTimeout(() => {
+            dispatch(clearError());
+          }, 3000);
           setLoading(false);
         }
       } catch (error) {
         dispatch(setError('Đăng ký thất bại!'));
+        setTimeout(() => {
+          dispatch(clearError());
+        }, 3000);
       }
     }
   };
@@ -316,16 +296,6 @@ const SignUp = () => {
           <div className={cx('radio-group')}>
             <input
               type="radio"
-              id="user"
-              name="typeSignup"
-              value="user"
-              checked={userType === 'user'}
-              onChange={handleUserTypeChange}
-              required
-            />
-            <label htmlFor="user">Normal user</label>
-            <input
-              type="radio"
               id="alumni"
               name="typeSignup"
               value="alumni"
@@ -343,26 +313,6 @@ const SignUp = () => {
             />
             <label htmlFor="lecturer">Lecturer</label>
           </div>
-          {userType === 'user' && (
-            <div id="optionalPart" style={{ display: userType === 'user' ? 'block' : 'none' }}>
-              <input
-                required
-                type="password"
-                placeholder="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-              />
-              <input
-                required
-                type="password"
-                name="confirmPassword"
-                placeholder="confirm password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-              />
-            </div>
-          )}
           {userType === 'alumni' && (
             <div id="optionalPart" style={{ display: userType === 'alumni' ? 'block' : 'none' }}>
               <input
@@ -378,6 +328,7 @@ const SignUp = () => {
                 type="password"
                 placeholder="password"
                 name="password"
+                minLength="6"
                 value={formData.password}
                 onChange={handleChange}
               />
@@ -385,6 +336,7 @@ const SignUp = () => {
                 required
                 type="password"
                 name="confirmPassword"
+                minLength="6"
                 placeholder="confirm password"
                 value={formData.confirmPassword}
                 onChange={handleChange}

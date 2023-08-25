@@ -18,11 +18,11 @@ import CommentImg from '../CommentImg/CommentImg';
 import { UtilsFunction } from '~/utils';
 
 const cx = classNames.bind(styles);
-function CommentBox({ postId }) {
+function CommentBox({ post }) {
   const cookies = new Cookies();
   const token = cookies.get('accessToken');
   const dispatch = useDispatch();
-  const { handleShowError } = UtilsFunction();
+  const { handleShowError, handleShowSuccess } = UtilsFunction();
   const deletedSubComments = useSelector((state) => state.deletedSubComments);
   const { currentUser } = useContext(UserContext);
   const [comments, setComments] = useState([]);
@@ -50,7 +50,7 @@ function CommentBox({ postId }) {
 
   useEffect(() => {
     axios
-      .get(`${API_URL}posts/${postId}/comments`)
+      .get(`${API_URL}posts/${post.id}/comments`)
       .then((response) => {
         setComments(response.data);
         dispatch(deleteSubComment(false));
@@ -59,7 +59,7 @@ function CommentBox({ postId }) {
         handleShowError('Đã có lỗi xảy ra.');
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [postId, deletedSubComments]);
+  }, [post, deletedSubComments]);
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
@@ -68,7 +68,7 @@ function CommentBox({ postId }) {
         content: newComment,
       };
       axios
-        .post(`${API_URL}posts/${postId}/comments`, JSON.stringify(content), {
+        .post(`${API_URL}posts/${post.id}/comments`, JSON.stringify(content), {
           headers: {
             Authorization: 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -93,13 +93,14 @@ function CommentBox({ postId }) {
 
   const handleDeleteComment = (commentId) => {
     axios
-      .delete(API_URL + `posts/${postId}/comments/${commentId}`, {
+      .delete(API_URL + `posts/${post.id}/comments/${commentId}`, {
         headers: {
           Authorization: 'Bearer ' + token,
         },
       })
       .then((res) => {
         dispatch(deleteSubComment(true));
+        handleShowSuccess('Thành công');
       })
       .catch((err) => {
         handleShowError('Đã xảy ra lỗi!');
@@ -113,7 +114,7 @@ function CommentBox({ postId }) {
         content: newComment,
       };
       axios
-        .post(`${API_URL}posts/${postId}/comments/${commentId}/comments`, JSON.stringify(content), {
+        .post(`${API_URL}posts/${post.id}/comments/${commentId}/comments`, JSON.stringify(content), {
           headers: {
             Authorization: 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -149,7 +150,7 @@ function CommentBox({ postId }) {
                     {expandedComments.includes(comment.id) ? 'Ẩn bớt' : 'Xem thêm'}
                   </span>
                 )}
-                {currentUser.userId === comment.userId && (
+                {(currentUser.userId === comment.userId || currentUser.userId === post.userId) && (
                   <div className={cx('comment-action')} onClick={() => handleDeleteComment(comment.id)}>
                     <span>Xóa</span>
                   </div>
@@ -162,7 +163,7 @@ function CommentBox({ postId }) {
               {expandedComments.includes(comment.id) && (
                 <div className={cx('sub-comments')}>
                   {comment.subComments.map((subComment, subIndex) => (
-                    <SubComment key={subIndex} subComment={subComment} postId={postId} />
+                    <SubComment key={subIndex} subComment={subComment} post={post} />
                   ))}
                 </div>
               )}
@@ -199,7 +200,7 @@ function CommentBox({ postId }) {
 }
 
 CommentBox.propTypes = {
-  postId: PropTypes.number.isRequired,
+  post: PropTypes.object.isRequired,
 };
 
 export default CommentBox;

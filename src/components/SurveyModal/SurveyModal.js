@@ -14,7 +14,7 @@ const cx = classNames.bind(styles);
 function SurveyModal({ show, onHide, data = null }) {
   const cookies = new Cookies();
   const { handleShowError, handleShowSuccess } = UtilsFunction();
-  const { addPost, setPosts } = usePosts();
+  const { addPost } = usePosts();
   const [contentSurvey, setContentSurvey] = useState({
     type: 'TRAINING_PROGRAMS',
     description: '',

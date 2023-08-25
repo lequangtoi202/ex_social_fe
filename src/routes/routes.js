@@ -8,6 +8,7 @@ import config from '~/config';
 import HeaderOnly from '~/layouts/HeaderOnly/HeaderOnly';
 import HomeChat from '~/pages/HomeChat';
 import Group from '~/pages/Group';
+import ChangePassword from '~/pages/ChangePassword';
 
 //Public routes
 const publicRoutes = [
@@ -18,6 +19,7 @@ const publicRoutes = [
   { path: config.routes.groups, component: Groups },
   { path: config.routes.group, component: Group },
   { path: config.routes.chat, component: HomeChat, layout: HeaderOnly },
+  { path: config.routes.changePassword, component: ChangePassword, layout: HeaderOnly },
 ];
 
 const privateRoutes = [];

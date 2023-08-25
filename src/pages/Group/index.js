@@ -16,6 +16,7 @@ import { faCommentAlt, faShareFromSquare, faThumbsUp } from '@fortawesome/free-r
 import { useContext, useEffect, useRef, useState } from 'react';
 import Cookies from 'universal-cookie';
 import { useDispatch, useSelector } from 'react-redux';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
 import axios from 'axios';
 
 import styles from './Group.module.scss';
@@ -34,7 +35,6 @@ import SurveyModal from '~/components/SurveyModal/SurveyModal';
 import SurveyPost from '~/layouts/components/SurveyPost/SurveyPost';
 import AddMember from '~/components/AddMember/AddMember';
 import { UtilsFunction } from '~/utils';
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
 
 const cx = classNames.bind(styles);
 function Group() {
@@ -493,7 +493,7 @@ function Group() {
                     </div>
                   </div>
                   {post.isLocked && showCommentBoxes[post.id] && <div>Bình luận đã bị khóa</div>}
-                  {!post.isLocked && showCommentBoxes[post.id] && <CommentBox postId={post.id} />}
+                  {!post.isLocked && showCommentBoxes[post.id] && <CommentBox post={post} />}
                 </div>
               </div>
             ))}

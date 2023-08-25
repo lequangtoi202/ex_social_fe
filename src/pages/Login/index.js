@@ -39,6 +39,9 @@ const Login = () => {
 
         if (response.statusCode === 500) {
           dispatch(setError('Email không tồn tại'));
+          setTimeout(() => {
+            dispatch(clearError());
+          }, 3000);
         } else {
           const user = response.data;
           const loginRequest = {
@@ -66,15 +69,23 @@ const Login = () => {
           } catch (err) {
             if (err.response.status === 500) {
               dispatch(setError('Đăng nhập không thành công!'));
+              setTimeout(() => {
+                dispatch(clearError());
+              }, 3000);
             }
             if (err.response.status === 400) {
-              console.log(err.response);
-              dispatch(setError('Đăng nhập không thành công!'));
+              dispatch(setError(err.response.data));
+              setTimeout(() => {
+                dispatch(clearError());
+              }, 3000);
             }
           }
         }
       } catch (err) {
         dispatch(setError('Email không tồn tại'));
+        setTimeout(() => {
+          dispatch(clearError());
+        }, 3000);
       }
     } else {
       email = formData.usernameOrEmail;
@@ -109,18 +120,30 @@ const Login = () => {
               navigate('/');
             } catch (err) {
               dispatch(setError('Đăng nhập không thành công!'));
+              setTimeout(() => {
+                dispatch(clearError());
+              }, 3000);
             }
           } catch (err) {
             if (err.response.status === 400) {
               dispatch(setError(err.response.data));
+              setTimeout(() => {
+                dispatch(clearError());
+              }, 3000);
             }
             if (err.response.status === 500) {
-              dispatch(setError('Đăng nhập không thành công!'));
+              dispatch(setError('Đã có lỗi xảy ra!'));
+              setTimeout(() => {
+                dispatch(clearError());
+              }, 3000);
             }
           }
         }
       } catch (err) {
         dispatch(setError('Username không đã tồn tại'));
+        setTimeout(() => {
+          dispatch(clearError());
+        }, 3000);
       }
     }
   };
@@ -146,7 +169,7 @@ const Login = () => {
             <Link to="/forget-password">Forget password?</Link>
           </p>
           <p>
-            You don't have an account? <Link to="/signup">Register</Link>
+            You don't have an account? <Link to="/signup">Sign up</Link>
           </p>
         </div>
       </div>

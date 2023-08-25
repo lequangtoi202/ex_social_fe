@@ -106,6 +106,7 @@ body {
     top: 10px;
     line-height: 55px;
     height: 70px;
+    z-index: 15;
     box-shadow: -1px 2px #ebe7e7;
     padding: 6px 16px;
     color: rgb(95, 33, 32);
@@ -133,6 +134,7 @@ body {
     box-shadow: -1px 2px #ebe7e7;
     padding: 6px 16px;
     color: #155724;
+    z-index: 15;
     background-color: #d4edda;
     border: 1px solid #c3e6cb;
     text-align: center;

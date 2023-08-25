@@ -12,6 +12,7 @@ import {
   faUser,
   faGear,
   faSignOut,
+  faKey,
 } from '@fortawesome/free-solid-svg-icons';
 
 import Button from '~/components/Button/Button';
@@ -65,6 +66,11 @@ function Header() {
       to: '/setting',
     },
     ...MENU_ITEMS,
+    {
+      icon: <FontAwesomeIcon icon={faKey} />,
+      title: 'Change password',
+      to: '/change-password',
+    },
     {
       icon: <FontAwesomeIcon icon={faSignOut} />,
       title: 'Log out',

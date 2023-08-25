@@ -468,7 +468,7 @@ function Profile() {
                     </div>
                   </div>
                   {post.isLocked && showCommentBoxes[post.id] && <div>Bình luận đã bị khóa</div>}
-                  {!post.isLocked && showCommentBoxes[post.id] && <CommentBox postId={post.id} />}
+                  {!post.isLocked && showCommentBoxes[post.id] && <CommentBox post={post} />}
                 </div>
               </div>
             ))}

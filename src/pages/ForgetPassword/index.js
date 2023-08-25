@@ -16,6 +16,8 @@ function ForgetPassword() {
   const handleChange = (e) => {
     if (!emailRegex.test(e.target.value)) {
       dispatch(setError('Email không hợp lệ'));
+    } else {
+      dispatch(clearError());
     }
     setEmail(e.target.value);
   };
@@ -26,8 +28,10 @@ function ForgetPassword() {
     try {
       const res = await axios.get(`${API_URL}users/forgot-password?email=${email}`);
       dispatch(clearError());
+      setEmail('');
     } catch (err) {
       dispatch(setError('Yêu cầu reset password không thành công!'));
+      setEmail('');
     }
   };
 

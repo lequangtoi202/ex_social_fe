@@ -10,6 +10,7 @@ const routes = {
   signup: '/signup',
   logout: '/logout',
   chat: '/chat',
+  changePassword: '/change-password',
 };
 
 export default routes;

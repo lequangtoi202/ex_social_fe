@@ -15,7 +15,7 @@ import { vi } from 'date-fns/locale';
 import { UtilsFunction } from '~/utils';
 
 const cx = classNames.bind(styles);
-function SubComment({ subComment, postId }) {
+function SubComment({ subComment, post }) {
   const cookies = new Cookies();
   const token = cookies.get('accessToken');
   const { currentUser } = useContext(UserContext);
@@ -24,7 +24,7 @@ function SubComment({ subComment, postId }) {
 
   const handleDeleteComment = (commentId) => {
     axios
-      .delete(API_URL + `posts/${postId}/comments/${commentId}`, {
+      .delete(API_URL + `posts/${post.id}/comments/${commentId}`, {
         headers: {
           Authorization: 'Bearer ' + token,
         },
@@ -51,7 +51,7 @@ function SubComment({ subComment, postId }) {
           <div className={cx('comment-action')}>
             <span>Phản hồi</span>
           </div>
-          {currentUser.userId === subComment.userId && (
+          {(currentUser.userId === subComment.userId || currentUser.userId === post.userId) && (
             <div className={cx('comment-action')} onClick={() => handleDeleteComment(subComment.id)}>
               <span>Xóa</span>
             </div>
@@ -68,6 +68,7 @@ function SubComment({ subComment, postId }) {
 
 SubComment.propTypes = {
   subComment: PropTypes.object,
+  post: PropTypes.object,
 };
 
 export default SubComment;

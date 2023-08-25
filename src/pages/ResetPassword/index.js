@@ -28,9 +28,7 @@ function ResetPassword() {
     if (token) {
       axios
         .get(`${API_URL}users/reset-password?token=${token}`)
-        .then((response) => {
-          dispatch(setSuccess('Thành công'));
-        })
+        .then((response) => {})
         .catch((error) => {
           dispatch(setError('Token không hợp lệ'));
         });
@@ -52,7 +50,6 @@ function ResetPassword() {
     if (password !== confirmPassword) {
       dispatch(setError('Mật khẩu không trùng khớp'));
     }
-
     try {
       const response = await axios.post(API_URL + 'users/reset-password', null, {
         params: {
@@ -61,7 +58,6 @@ function ResetPassword() {
           confirmPassword: confirmPassword,
         },
       });
-
       updatePassword(auth.currentUser, password)
         .then((res) => {
           dispatch(setSuccess('Thành công'));
@@ -84,7 +80,7 @@ function ResetPassword() {
         <form onSubmit={handleSubmit}>
           <input
             type="password"
-            placeholder="Type your password"
+            placeholder="password"
             value={password}
             name="password"
             required
@@ -92,7 +88,7 @@ function ResetPassword() {
           />
           <input
             type="password"
-            placeholder="Type your confirm password"
+            placeholder="confirm password"
             onChange={handleChange}
             value={confirmPassword}
             required

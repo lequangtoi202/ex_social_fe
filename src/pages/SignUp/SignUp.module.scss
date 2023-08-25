@@ -41,6 +41,7 @@
             }
         
             label {
+                font-size: 14px;
                 cursor: pointer;
             }
         }
@@ -54,12 +55,12 @@
 
         .title {
             color: #5d5b8d;
-            font-size: 12px;
+            font-size: 14px;
         }
 
         p {
             color: #5d5b8d;
-            font-size: 12px;
+            font-size: 14px;
             margin-top: 10px;
         }
     }
@@ -94,12 +95,16 @@
             align-items: center;
             gap: 10px;
             color: #8da4f1;
-            font-size: 12px;
+            font-size: 14px;
             cursor: pointer;
 
             img {
                 width: 32px;
             }
         }
+
+        
     }
+
+    
 }

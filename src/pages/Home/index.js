@@ -267,7 +267,6 @@ function Home() {
         handleShowError('Không thể mở khóa post này!');
       });
   };
-  console.log(currentUser);
 
   return (
     <>
@@ -414,7 +413,7 @@ function Home() {
                   {post.isLocked && showCommentBoxes[post.id] && (
                     <div style={{ marginLeft: '20px' }}>Bình luận đã bị khóa</div>
                   )}
-                  {!post.isLocked && showCommentBoxes[post.id] && <CommentBox postId={post.id} />}
+                  {!post.isLocked && showCommentBoxes[post.id] && <CommentBox post={post} />}
                 </div>
               )}
             </div>
